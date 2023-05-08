@@ -1,0 +1,4 @@
+/.zip
+zip
+// zip file unwanted files
+zip -d file.zip unwanted_file.txt
