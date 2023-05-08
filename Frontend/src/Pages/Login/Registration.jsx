@@ -25,10 +25,9 @@ function Registration() {
 				role,
 				pharmacyId: pharmacyId.id,
 			};
-
+			console.log(ob);
 			const response = await POST('/user', ob);
-			console.log(response);
-			// window.location.href = '/';
+			window.location.href = '/';
 		} catch (error) {
 			console.log(error);
 		}
@@ -59,7 +58,7 @@ function Registration() {
 
 	return (
 		<div className="flex flex-col items-center h-screen justify-center">
-			<h1 className="text-2xl font-bold mb-4">User Registration</h1>
+			<h1 className="text-2xl font-bold mb-4 mt-20">User Registration</h1>
 			<div className="w-full md:max-w-md md:px-0 file:px-10">
 				<div className="flex flex-wrap -mx-3 mb-6">
 					<div className="w-full px-3">
@@ -188,13 +187,14 @@ function Registration() {
 									value={JSON.stringify(pharmacyId)}
 									onChange={(event) => {
 										setPharmacyId(JSON.parse(event.target.value));
-										setCreatedUserId(JSON.parse(event.target.value).address);
+										setCreatedUserId(JSON.parse(event.target.value).district);
 									}}
 								>
 									<option value="">Select Pharmacy</option>
 									{pharmacies?.map((pharmacy) => (
 										<option key={pharmacy?.id} value={JSON.stringify(pharmacy)}>
 											{pharmacy.name}
+											{console.log(pharmacy)}
 										</option>
 									))}
 								</select>

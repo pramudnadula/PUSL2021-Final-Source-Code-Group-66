@@ -28,10 +28,9 @@ function Home() {
 				setLoading(false);
 				return;
 			}
-			console.log(user?.pharmacyId);
 
 			if (user?.role === 1) {
-				const response = await GET(`/order/district/3`);
+				const response = await GET(`/order/district/${user?.id}`);
 				setPharmacies(response.data);
 				console.log(response.data);
 				setLoading(false);

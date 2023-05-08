@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { DELETE } from '../../../helpers/HttpHelper';
 
-function PharmacyAll({ pharmacies, loading, setPharmacyOne, districts }) {
+function PharmacyAll({ pharmacies, loading, setPharmacyOne, districts, fetchMedicines }) {
 	const handleEditMedicine = (pharmacie) => {
 		setPharmacyOne(pharmacie);
 	};
@@ -13,7 +13,7 @@ function PharmacyAll({ pharmacies, loading, setPharmacyOne, districts }) {
 			}
 			const response = await DELETE(`/pharmacy/${id}`);
 			console.log(response);
-			window.location.reload();
+			fetchMedicines();
 		} catch (error) {
 			console.log(error);
 		}
@@ -49,6 +49,7 @@ function PharmacyAll({ pharmacies, loading, setPharmacyOne, districts }) {
 							<tr>
 								<th className="px-4 py-2 border">Name</th>
 								<th className="px-4 py-2 border">Description</th>
+								<th className="px-4 py-2 border">Address</th>
 								<th className="px-4 py-2 border">District</th>
 								<th className="px-4 py-2 border">Email</th>
 								<th className="px-4 py-2 border">contactNo</th>
@@ -66,8 +67,11 @@ function PharmacyAll({ pharmacies, loading, setPharmacyOne, districts }) {
 										{pharmacie?.description ? pharmacie?.description : 'N/A'}
 									</td>
 									<td className="px-4 py-2 border">
-										{pharmacie?.address
-											? districts.find((d) => d.id === Number(pharmacie?.address))?.name
+										{pharmacie?.address ? pharmacie?.address : 'N/A'}
+									</td>
+									<td className="px-4 py-2 border">
+										{pharmacie?.district
+											? districts.find((d) => d.id === Number(pharmacie?.district))?.name
 											: 'N/A'}
 									</td>
 									<td className="px-4 py-2 border">{pharmacie?.email ? pharmacie?.email : 'N/A'}</td>

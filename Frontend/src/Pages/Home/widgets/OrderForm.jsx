@@ -43,6 +43,8 @@ function OrderForm({ fetchMedicines, pharmacieOne, districts }) {
 			formData.append('district', district);
 			formData.append('image', image);
 
+			console.log(formData);
+
 			const response = await POST('/order', formData);
 			console.log(response);
 			fetchMedicines();

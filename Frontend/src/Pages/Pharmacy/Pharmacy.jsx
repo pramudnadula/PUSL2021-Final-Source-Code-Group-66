@@ -33,6 +33,7 @@ function Pharmacy() {
 						loading={loading}
 						setPharmacyOne={setPharmacyOne}
 						districts={districts}
+						fetchMedicines={fetchMedicines}
 					/>
 				</div>
 				{user.role === 0 && (

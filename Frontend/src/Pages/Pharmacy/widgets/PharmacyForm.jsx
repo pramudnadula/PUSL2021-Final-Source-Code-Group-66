@@ -11,6 +11,7 @@ function PharmacyForm({ fetchMedicines, pharmacieOne, districts }) {
 	const [address, setAddress] = useState('');
 	const [email, setEmail] = useState('');
 	const [contactNo, setContactNo] = useState('');
+	const [district, setDistrict] = useState('');
 	const [isShow, setIsShow] = useState(false);
 
 	useEffect(() => {
@@ -20,6 +21,7 @@ function PharmacyForm({ fetchMedicines, pharmacieOne, districts }) {
 			setAddress(pharmacieOne.address);
 			setEmail(pharmacieOne.email);
 			setContactNo(pharmacieOne.contactNo);
+			setDistrict(pharmacieOne?.district);
 			setIsShow(true);
 		} else {
 			setName('');
@@ -27,6 +29,7 @@ function PharmacyForm({ fetchMedicines, pharmacieOne, districts }) {
 			setAddress('');
 			setEmail('');
 			setContactNo('');
+			setDistrict('');
 			setIsShow(false);
 		}
 	}, [pharmacieOne]);
@@ -49,13 +52,13 @@ function PharmacyForm({ fetchMedicines, pharmacieOne, districts }) {
 				address,
 				email,
 				contactNo,
+				district,
 			};
 
 			console.log(medicine);
 			const response = await POST('/pharmacy', medicine);
 			console.log(response);
-
-			window.location.reload();
+			fetchMedicines();
 		} catch (error) {
 			console.log(error);
 		}
@@ -75,13 +78,14 @@ function PharmacyForm({ fetchMedicines, pharmacieOne, districts }) {
 				address,
 				email,
 				contactNo,
+				district,
 			};
 
 			console.log(medicine);
 			const response = await PUT('/pharmacy', medicine);
 			console.log(response);
 
-			// window.location.reload();
+			fetchMedicines();
 		} catch (error) {
 			console.log(error);
 		}
@@ -137,6 +141,23 @@ function PharmacyForm({ fetchMedicines, pharmacieOne, districts }) {
 				<div className="flex flex-wrap -mx-3 mb-3">
 					<div className="w-full px-3">
 						<label
+							htmlFor="description"
+							className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+						>
+							Address
+						</label>
+						<input
+							id="address"
+							type="text"
+							className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+							value={address}
+							onChange={(e) => setAddress(e.target.value)}
+						/>
+					</div>
+				</div>
+				<div className="flex flex-wrap -mx-3 mb-3">
+					<div className="w-full px-3">
+						<label
 							htmlFor="address"
 							className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
 						>
@@ -145,8 +166,8 @@ function PharmacyForm({ fetchMedicines, pharmacieOne, districts }) {
 						<select
 							id="address"
 							className="block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-							value={address}
-							onChange={(e) => setAddress(e.target.value)}
+							value={district}
+							onChange={(e) => setDistrict(e.target.value)}
 						>
 							<option value="">Select District</option>
 							{districts.map((district) => (
